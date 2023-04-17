@@ -1,3 +1,5 @@
+#In this SQL code, I'm querying a database that's holding countries data to answer questions about the data.
+
 /*
  Countries and dependent territories, 2020
  Data adapted from
