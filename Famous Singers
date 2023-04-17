@@ -1,3 +1,5 @@
+#In this SQL code, I'm creating and querying a database that's holding famous singer data to answer questions about the data.
+
 CREATE TABLE famous_singers (
     singer_id INTEGER PRIMARY KEY,
     name TEXT,
