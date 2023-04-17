@@ -1,0 +1,78 @@
+CREATE TABLE famous_singers (
+    singer_id INTEGER PRIMARY KEY,
+    name TEXT,
+    age INTEGER,
+    birth_year INTEGER
+);
+
+CREATE TABLE songs (
+    song_id INTEGER PRIMARY KEY,
+    singer_id INTEGER,
+    title TEXT, 
+    album TEXT,
+    FOREIGN KEY(singer_id) REFERENCES famous_singers(singer_id)
+);
+
+CREATE TABLE awards (
+    award_id INTEGER PRIMARY KEY,
+    name TEXT,
+    category TEXT,
+    year INTEGER,
+    singer_id INTEGER
+    );
+   
+
+-- famous_singers table
+INSERT INTO famous_singers (name, age, birth_year) VALUES
+    ('Justin Bieber', 28, 1994),
+    ('Ariana Grande', 28, 1993),
+    ('Beyonce Knowles', 40, 1981),
+    ('Ed Sheeran', 30, 1991),
+    ('Taylor Swift', 31, 1989);
+
+-- songs table
+INSERT INTO songs (singer_id, title, album) VALUES
+    (1, 'Sorry', 'Purpose'),
+    (2, 'Thank U, Next', 'Thank U, Next'),
+    (3, 'Crazy in Love', 'Dangerously in Love'),
+    (4, 'Shape of You', '÷'),
+    (5, 'Love Story', 'Fearless');
+
+-- awards table
+INSERT INTO awards (name, category, year, singer_id) VALUES
+    ('Grammy', 'Album of the Year', 2020, 2),
+    ('MTV Video Music Awards', 'Video of the Year', 2019, 1),
+    ('Billboard Music Awards', 'Top Female Artist', 2021, 3),
+    ('MTV Europe Music Awards', 'Best Song', 2017, 4),
+    ('American Music Awards', 'Artist of the Year', 2020, 5),
+    ('MTV Video Music Awards', 'Best Pop', 2018, 5),
+    ('Billboard Music Awards', 'Top Artist', 2019, 2),
+    ('Grammy', 'Record of the Year', 2016, 4),
+    ('MTV Europe Music Awards', 'Best Live Act', 2020, 3),
+    ('American Music Awards', 'Favorite Female Artist - Pop/Rock', 2021, 1);
+    
+--Return the album, song, and award for each singer.    
+SELECT famous_singers.name, awards.category, songs.album, songs.title FROM famous_singers
+JOIN awards
+ON famous_singers.singer_id = awards.singer_id
+JOIN songs
+ON famous_singers.singer_id = songs.singer_id;
+
+--Returns the age a singer was when they won the award.
+SELECT famous_singers.name, awards.name AS award_won, (awards.year-famous_singers.birth_year) AS age_when_presented  FROM famous_singers
+JOIN awards
+ON famous_singers.singer_id = awards.singer_id
+JOIN songs
+ON famous_singers.singer_id = songs.singer_id;
+
+--Returns the average age of singers who have won an award in each year.
+SELECT awards.year, AVG(famous_singers.age) AS average_age FROM famous_singers
+JOIN awards
+ON famous_singers.singer_id = awards.singer_id
+JOIN songs
+ON famous_singers.singer_id = songs.singer_id
+GROUP BY awards.year; 
+
+--How many awards were presented per year?
+SELECT awards.year, COUNT(awards.name) AS num_awards_given FROM awards
+GROUP BY awards.year; 
