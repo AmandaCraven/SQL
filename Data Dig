@@ -241,4 +241,8 @@ SELECT name, MIN(fertility_rate) FROM countries;
 --What is the average age of the world population?
 SELECT AVG(median_age) FROM countries;
 
+What is the fertility rate of countries with a population greater than one million and that are greater than 2% of the worlds population
 
+Select name, fertility_rate FROM countries
+WHERE population > 1000000 AND percent_of_world_pop > 2
+ORDER BY population;
