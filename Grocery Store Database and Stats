@@ -1,3 +1,5 @@
+#In this SQL code, I'm querying a database that's holding grocery store data to answer questions about the data.
+
 --Create a grocery store database
 
 CREATE TABLE store (id INTEGER PRIMARY KEY, item TEXT, section TEXT, price INTEGER, available_items INTEGER, max_stock INTEGER);
