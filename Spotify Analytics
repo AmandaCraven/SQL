@@ -74,3 +74,22 @@ SELECT a.track_name, COUNT(DISTINCT b.artist_name) AS num_of_artists
 FROM BIT_DB.Spotifydata a
 JOIN BIT_DB.Spotifydata b ON a.track_name = b.track_name
 GROUP BY a.track_name;
+
+--Add a 'Top Star' label to all artists with an average popularity of 90 or higher with a CTE.
+WITH popularity_average_CTE AS(
+    SELECT
+    s.artist_name,
+    AVG(s.popularity) avgpop
+    FROM Spotifydata s
+    GROUP BY s.artist_name
+)
+SELECT 
+    artist_name, 
+    avgpop,
+    'Top Star' AS tag
+FROM 
+    popularity_average_CTE
+WHERE
+    avgpop > 89
+ORDER BY
+    avgpop desc;
